@@ -1,6 +1,7 @@
 class Map:
     content = []
     entities = []
+    plants = []
 
     def __init__(self, mapName, mapX, mapY):
         self.mapName = mapName
@@ -14,7 +15,7 @@ class Map:
                 Map.content[y].append(".")
 
     def displayMap(self):
-        for plant in Map.entities:
+        for plant in Map.plants:
             try:Map.content[plant.plantY][plant.plantX] = plant.entityIcon()
             except:pass
         for entity in Map.entities:

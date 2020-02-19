@@ -38,7 +38,7 @@ class Entity:
                     break
 
     def move(self):
-        Entity.food -= 1
+        #Entity.food -= 1
 
         if Entity.food >= 75:
             self.randomMove()

@@ -22,7 +22,6 @@ plant8 = Plant(map1)
 plant9 = Plant(map1)
 plant10 = Plant(map1)
 plant11 = Plant(map1)
-plant12 = Plant(map1)
 map1.generateMap()
 
 while True:
