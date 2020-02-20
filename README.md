@@ -5,5 +5,5 @@ Some code has to be look through for bugs that will happen in the future
 but for now there isn't much that is going wrong :)
 
 # Todo-list:
-* Make entities find plants.
+* Make entity walk to plant.
 * Make entities eat plants.

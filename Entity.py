@@ -1,11 +1,12 @@
 from Map import *
 from Plant import *
-import random
+import random, math
 
 
 class Entity:
     food = 100
-    nearestFood = []
+    nearestFood = None
+    pathToFood = []
 
     def __init__(self, name, entityX, entityY, currentMap):
         self.entityX = entityX
@@ -31,14 +32,18 @@ class Entity:
             self.entityX -= 1
 
     def searchFood(self):
-        for entity in self.currentMap.entities:
-            if entity is Plant:
-                if (entity.entityX + entity.entityY) - (self.entityX + self.entityY) < 15:
-                    self.nearestFood.append(entity)
-                    break
+        #Finds nearest plants
+        Entity.nearestFood = None
+        for plant in self.currentMap.plants:
+            if Entity.nearestFood == None:
+                Entity.nearestFood = plant
+            if math.sqrt((plant.plantX-self.entityX)**2 + (plant.plantY-self.entityY)**2) < math.sqrt((Entity.nearestFood.plantX-self.entityX)**2 + (Entity.nearestFood.plantY-self.entityY)**2):
+                Entity.nearestFood = plant
+                
+        #Walks to nearest plant
 
     def move(self):
-        #Entity.food -= 1
+        Entity.food -= 2
 
         if Entity.food >= 75:
             self.randomMove()

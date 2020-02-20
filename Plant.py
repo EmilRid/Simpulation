@@ -1,8 +1,9 @@
 import random
 
 class Plant:
-    def __init__(self, currentMap):
+    def __init__(self, name,  currentMap):
         self.currentMap = currentMap
+        self.name = name
         plantX = 0
         plantY = 0
 
@@ -11,4 +12,4 @@ class Plant:
         currentMap.plants.append(self)
 
     def entityIcon(self):
-       return "*"
+       return self.name[0].upper()
