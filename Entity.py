@@ -42,8 +42,9 @@ class Entity:
                 
         #Walks to nearest plant
 
+
     def move(self):
-        Entity.food -= 2
+        Entity.food -= 1
 
         if Entity.food >= 75:
             self.randomMove()
