@@ -18,19 +18,19 @@ class Entity:
         currentMap.entities.append(self)
 
     def entityIcon(self):
-        return self.name[0].upper()
+        return self.name[0].upper() + " "
 
     def randomMove(self):
         RandomDirection = random.choice(["north", "east", "south", "west"])
-        self.currentMap.content[self.entityY][self.entityX] = "."
+        self.currentMap.content[self.entityY][self.entityX] = "  "
         if RandomDirection == "north" and self.entityY != 0:
-            self.entityY -= 1
+            self.move("north")
         if RandomDirection == "south" and self.entityY != self.currentMap.mapY-1:
-            self.entityY += 1
+            self.move("south")
         if RandomDirection == "east" and self.entityX != self.currentMap.mapX-1:
-            self.entityX += 1
+            self.move("east")
         if RandomDirection == "west" and self.entityX != 0:
-            self.entityX -= 1
+            self.move("west")
 
     def searchFood(self):
         # Finds nearest plants
@@ -42,25 +42,31 @@ class Entity:
                 Entity.nearestFood = plant
 
        # Walks to nearest plant
-        self.currentMap.content[self.entityY][self.entityX] = "¤"
+        self.currentMap.content[self.entityY][self.entityX] = "  "
         if abs(Entity.nearestFood.plantY - self.entityY) > abs(Entity.nearestFood.plantX - self.entityX):
             if Entity.nearestFood.plantY - self.entityY < 0:
                 self.move("north")
             elif Entity.nearestFood.plantY - self.entityY > 0:
                 self.move("south")
+
         else:
             if Entity.nearestFood.plantX - self.entityX > 0:
                 self.move("east")
             elif Entity.nearestFood.plantX - self.entityX < 0:
                 self.move("west")
+            
+        if Entity.nearestFood.plantX == self.entityX and Entity.nearestFood.plantY == self.entityY:
+            Entity.food += 25
+            Entity.nearestFood.eaten()
+
 
     def move(self, direction):
         Entity.food -= 1
         if direction == "none":
-            if Entity.food >= 75:
+            if Entity.food >= 80:
                 self.randomMove()
 
-            if Entity.food < 75:
+            if Entity.food < 80:
                 self.searchFood()
 
         if direction == "north" and self.entityY != 0:
