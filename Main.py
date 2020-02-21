@@ -9,18 +9,13 @@ def cls():
     _ = system("cls")
 
 
-map1 = Map("map1", 25, 12)
-ent1 = Entity("Jeff", 10, 5, map1)
-plant1 = Plant("1", map1)
-plant2 = Plant("2", map1)
+map1 = Map("map1", 30, 7)
+ent1 = Entity("Jeff", 0, 0, map1)
+plant1 = Plant("1", 29, 6, map1)
 map1.generateMap()
 
 while True:
-    ent1.move()
+    ent1.move("none")
     map1.displayMap()
-    if ent1.nearestFood == plant1:
-        print("plant1")
-    if ent1.nearestFood == plant2:
-        print("plant2")
     sleep(0.5)
     cls()

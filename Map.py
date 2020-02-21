@@ -12,15 +12,19 @@ class Map:
         for y in range(self.mapY):
             Map.content.append([])
             for x in range(self.mapX):
-                Map.content[y].append(".")
+                Map.content[y].append("_")
 
     def displayMap(self):
         for plant in Map.plants:
-            try:Map.content[plant.plantY][plant.plantX] = plant.entityIcon()
-            except:pass
+            try:
+                Map.content[plant.plantY][plant.plantX] = plant.entityIcon()
+            except:
+                pass
         for entity in Map.entities:
-            try:Map.content[entity.entityY][entity.entityX] = entity.entityIcon()
-            except:pass
-            
+            try:
+                Map.content[entity.entityY][entity.entityX] = entity.entityIcon()
+            except:
+                pass
+
         for x in Map.content:
             print(*x, sep="")
