@@ -11,19 +11,18 @@ def cls():
 
 map1 = Map("map1", 25, 25)
 ent1 = Entity("Jeff", 0, 0, map1)
+ent2 = Entity("test", 0, 0, map1)
 plant1 = Plant("none", 0, 0, map1)
 plant2 = Plant("none", 0, 0, map1)
 plant3 = Plant("none", 0, 0, map1)
 plant4 = Plant("none", 0, 0, map1)
-plant5 = Plant("none", 0, 0, map1)
-plant6 = Plant("none", 0, 0, map1)
-plant7 = Plant("none", 0, 0, map1)
-plant8 = Plant("none", 0, 0, map1)
 map1.generateMap()
 
 while True:
     ent1.move("none")
+    ent2.move("none")
     map1.displayMap()
-    print(ent1.name, Entity.food)
+    for ent in map1.entities:
+        print(ent.food, end="")
     sleep(0.5)
     cls()

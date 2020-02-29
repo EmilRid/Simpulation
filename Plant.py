@@ -18,6 +18,8 @@ class Plant:
         if self.name != "none":
             return self.name[0].upper() + " "
         else: return "* "
+
     def eaten(self):
         self.currentMap.content[self.plantY][self.plantX] = "  "
         self.currentMap.plants.remove(self)
+        del self
