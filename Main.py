@@ -9,7 +9,7 @@ def cls():
     _ = system("cls")
 
 
-map1 = Map("map1", 25, 25)
+map1 = Map("map1", 20, 20)
 ent1 = Entity("Jeff", 0, 0, map1)
 ent2 = Entity("test", 0, 0, map1)
 plant1 = Plant("none", 0, 0, map1)

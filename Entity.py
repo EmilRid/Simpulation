@@ -15,6 +15,7 @@ class Entity:
         self.food = 100
         self.nearestFood = None
         self.foodIncrement = 1
+        self.stepsList = []
 
         currentMap.entities.append(self)
 
@@ -30,16 +31,16 @@ class Entity:
         except:pass
 
     def randomMove(self):
-        RandomDirection = random.choice(["north", "east", "south", "west"])
+        RandomDirection = random.choice(["n", "e", "s", "w"])
         self.currentMap.content[self.entityY][self.entityX] = "  "
-        if RandomDirection == "north" and self.entityY != 0:
-            self.move("north")
-        if RandomDirection == "south" and self.entityY != self.currentMap.mapY-1:
-            self.move("south")
-        if RandomDirection == "east" and self.entityX != self.currentMap.mapX-1:
-            self.move("east")
-        if RandomDirection == "west" and self.entityX != 0:
-            self.move("west")
+        if RandomDirection == "n" and self.entityY != 0:
+            self.move("n")
+        if RandomDirection == "s" and self.entityY != self.currentMap.mapY-1:
+            self.move("s")
+        if RandomDirection == "e" and self.entityX != self.currentMap.mapX-1:
+            self.move("e")
+        if RandomDirection == "w" and self.entityX != 0:
+            self.move("w")
 
     def searchFood(self):
         try:
@@ -50,20 +51,32 @@ class Entity:
                     self.nearestFood = plant
                 if math.sqrt((plant.plantX-self.entityX)**2 + (plant.plantY-self.entityY)**2) < math.sqrt((self.nearestFood.plantX-self.entityX)**2 + (self.nearestFood.plantY-self.entityY)**2):
                     self.nearestFood = plant
+                
+            
 
-        # Walks to nearest plant
+            # Creates list with all the steps needed
+            self.stepsList = []
             self.currentMap.content[self.entityY][self.entityX] = "  "
-            if abs(self.nearestFood.plantY - self.entityY) > abs(self.nearestFood.plantX - self.entityX):
-                if self.nearestFood.plantY - self.entityY < 0:
-                    self.move("north")
-                elif self.nearestFood.plantY - self.entityY > 0:
-                    self.move("south")
-
-            else:
-                if self.nearestFood.plantX - self.entityX > 0:
-                    self.move("east")
-                elif self.nearestFood.plantX - self.entityX < 0:
-                    self.move("west")
+            if self.nearestFood.plantY - self.entityY < 0:
+                for n in range(abs(self.nearestFood.plantY - self.entityY)):
+                    self.stepsList.append("n")
+            
+            if self.nearestFood.plantY - self.entityY > 0:
+                for n in range(abs(self.nearestFood.plantY - self.entityY)):
+                    self.stepsList.append("s")
+            
+            if self.nearestFood.plantX - self.entityX < 0:
+                for n in range(abs(self.nearestFood.plantX - self.entityX)):
+                    self.stepsList.append("w")
+            
+            if self.nearestFood.plantX - self.entityX > 0:
+                for n in range(abs(self.nearestFood.plantX - self.entityX)):
+                    self.stepsList.append("e")
+            
+            # Walks to nearest plant
+            step = random.choice(self.stepsList)
+            self.move(step)
+            self.stepsList.remove(step)
                 
             if self.nearestFood.plantX == self.entityX and self.nearestFood.plantY == self.entityY:
                 self.food += 25
@@ -85,11 +98,11 @@ class Entity:
                 self.die()
 
         if direction != "none":
-            if direction == "north" and self.entityY != 0:
+            if direction == "n" and self.entityY != 0:
                 self.entityY -= 1
-            if direction == "south" and self.entityY != self.currentMap.mapY-1:
+            if direction == "s" and self.entityY != self.currentMap.mapY-1:
                 self.entityY += 1
-            if direction == "east" and self.entityX != self.currentMap.mapX-1:
+            if direction == "e" and self.entityX != self.currentMap.mapX-1:
                 self.entityX += 1
-            if direction == "west" and self.entityX != 0:
+            if direction == "w" and self.entityX != 0:
                 self.entityX -= 1
